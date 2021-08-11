@@ -14,7 +14,7 @@ public class Passagem {
         this.ID = ID;
         this.RG = RG;
         this.nome = nome;
-        this.viagem = viagem;
+        this.setViagem(viagem);
     }
     //Gets e Sets
     public int getID(){
@@ -35,5 +35,11 @@ public class Passagem {
     public void setNome(String nome){
         this.nome = nome;
     }
+	public Viagem getViagem() {
+		return viagem;
+	}
+	public void setViagem(Viagem viagem) {
+		this.viagem = viagem;
+	}
 
 }

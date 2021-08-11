@@ -13,7 +13,7 @@ public class Embarcacao {
 	public Embarcacao(int id, String nome, int lotacao, Empresa propritário) {
 		this.id = id;
 		this.nome = nome;
-		this.lotacao = lotacao;
+		this.lotacao = 0;
 		this.propritário = propritário;
 	}
     
@@ -49,7 +49,5 @@ public class Embarcacao {
 	public void setPropritário(Empresa propritário) {
 		this.propritário = propritário;
 	}
-	
-	
-    
+	    
 }

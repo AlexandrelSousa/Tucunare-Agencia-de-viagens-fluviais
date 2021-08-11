@@ -40,10 +40,5 @@ public class Viagem {
 	public void setLinha(Linha linha) {
 		this.linha = linha;
 	}
-	
-	
-	
-	
-	
-    
+	   
 }
