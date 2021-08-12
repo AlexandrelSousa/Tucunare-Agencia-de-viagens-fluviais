@@ -11,7 +11,7 @@ public class RepositorioViagemLista implements RepositorioViagem {
 	
 	List <Viagem> viagens;
 
-    RepositorioViagemLista(){
+    public RepositorioViagemLista(){
         viagens = new ArrayList<>();
     }
 

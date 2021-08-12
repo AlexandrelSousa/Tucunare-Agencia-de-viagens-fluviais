@@ -8,7 +8,7 @@ public class RepositorioEmbarcacaoLista implements RepositorioEmbarcacao {
     
     List <Embarcacao> embarcacoes;
 
-    RepositorioEmbarcacaoLista(){
+    public RepositorioEmbarcacaoLista(){
         embarcacoes = new ArrayList<>();
     }
 

@@ -12,7 +12,7 @@ public class RepositorioPassagemLista implements RepositorioPassagem{
 	
 	List <Passagem> passagens;
 
-    RepositorioPassagemLista(){
+    public RepositorioPassagemLista(){
         passagens = new ArrayList<>();
     }
 	@Override
