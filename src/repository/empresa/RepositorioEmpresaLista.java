@@ -8,7 +8,7 @@ public class RepositorioEmpresaLista implements RepositorioEmpresa {
 	
 	List <Empresa> empresas;
 
-    RepositorioEmpresaLista(){
+    public RepositorioEmpresaLista(){
         empresas = new ArrayList<>();
     }
 
@@ -21,7 +21,7 @@ public class RepositorioEmpresaLista implements RepositorioEmpresa {
         }
     }
 
-	@Override
+	
 	public void alterarEmpresa(Empresa empresa) throws EmpresaNaoCadastradaException {
 		// TODO Auto-generated method stub
 		

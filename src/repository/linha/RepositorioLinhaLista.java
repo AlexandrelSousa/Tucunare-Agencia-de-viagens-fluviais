@@ -8,7 +8,7 @@ public class RepositorioLinhaLista implements RepositorioLinha {
     
     List <Linha> linhas;
 
-    RepositorioLinhaLista(){
+    public RepositorioLinhaLista(){
         linhas = new ArrayList<>();
     }
 
