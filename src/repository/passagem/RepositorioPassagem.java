@@ -14,6 +14,6 @@ public interface RepositorioPassagem {
 	
 	Passagem buscarPassagem(int ID) throws PassagemNaoCadastradaException;
 	
-	List<Passagem> getAll();
+	List<Passagem> getAll(int id);
     
 }

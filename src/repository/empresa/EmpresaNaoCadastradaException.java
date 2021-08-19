@@ -6,6 +6,4 @@ public class EmpresaNaoCadastradaException extends Exception {
 		super("Empresa não cadastrada");
 	}
 	
-	
-
 }

@@ -6,7 +6,7 @@ import model.empresa.Empresa;
 
 public interface RepositorioEmpresa {
 	
-	void inserirEmpresa (Empresa empresa) throws EmpresaJaCadastradaException;
+	Empresa inserirEmpresa (Empresa empresa) throws EmpresaJaCadastradaException;
 	
 	void alterarEmpresa (Empresa empresa) throws EmpresaNaoCadastradaException;
 	

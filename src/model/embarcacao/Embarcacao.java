@@ -4,25 +4,30 @@ import model.empresa.Empresa;
 
 public class Embarcacao {
 	
-	private int id;
+	private static int prox_id= 17500;
+	
+	private String id;
 	private String nome;
 	private int lotacao;
-	private Empresa propritário;
+	private Empresa proprietário;
 	
 	//Construtor
-	public Embarcacao(int id, String nome, int lotacao, Empresa propritário) {
-		this.id = id;
+	public Embarcacao(String nome, int lotacao, Empresa proprietário) {
+		this.id =  String.valueOf(Embarcacao.prox_id);
 		this.nome = nome;
-		this.lotacao = 0;
-		this.propritário = propritário;
+		this.lotacao = lotacao;
+		this.proprietário = proprietário;
+		
+		// incrementar o id da Embarcação
+		prox_id++;
 	}
     
 	//Métodos gets e sets
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -42,12 +47,12 @@ public class Embarcacao {
 		this.lotacao = lotacao;
 	}
 
-	public Empresa getPropritário() {
-		return propritário;
+	public Empresa getProprietário() {
+		return proprietário;
 	}
 
-	public void setPropritário(Empresa propritário) {
-		this.propritário = propritário;
+	public void setProprietário(Empresa proprietário) {
+		this.proprietário = proprietário;
 	}
 	    
 }
