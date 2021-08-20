@@ -49,11 +49,11 @@ public class RepositorioPassagemLista implements RepositorioPassagem{
         }
         throw new PassagemNaoCadastradaException();
 	}
-
 	@Override
-	public List<Passagem> getAll() {
+	public List<Passagem> getAll(int id) {
 		return new ArrayList<>(passagens);
 	}
+    
 	
 	
 

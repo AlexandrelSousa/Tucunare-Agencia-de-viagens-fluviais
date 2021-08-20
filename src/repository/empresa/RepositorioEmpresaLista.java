@@ -11,16 +11,17 @@ public class RepositorioEmpresaLista implements RepositorioEmpresa {
     public RepositorioEmpresaLista(){
         empresas = new ArrayList<>();
     }
-
-    public void inserirEmpresa(Empresa empresa) throws EmpresaJaCadastradaException{
-        try{
+    
+    @Override
+	public Empresa inserirEmpresa(Empresa empresa) throws EmpresaJaCadastradaException {
+		try{
             buscarEmpresa(empresa.getCnpj());
             throw new EmpresaJaCadastradaException();
         }catch (EmpresaNaoCadastradaException ex){
             empresas.add(empresa);
         }
+		return empresa;
     }
-
 	
 	public void alterarEmpresa(Empresa empresa) throws EmpresaNaoCadastradaException {
 		// TODO Auto-generated method stub
@@ -38,8 +39,9 @@ public class RepositorioEmpresaLista implements RepositorioEmpresa {
 
 	@Override
 	public Empresa buscarEmpresa(String cnpj) throws EmpresaNaoCadastradaException {
+		
 		for(Empresa empresa : empresas){
-            if(empresa.getCnpj() == cnpj){
+            if(empresa.getCnpj().equals(cnpj)){
                 return empresa;
             }
         }

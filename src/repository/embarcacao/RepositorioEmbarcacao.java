@@ -5,13 +5,14 @@ import java.util.List;
 
 public interface RepositorioEmbarcacao {
     
-    void inserirEmbarcacao(Embarcacao embarcacao) throws EmbarcacaoJaCadastradaException;
+    Embarcacao inserirEmbarcacao(Embarcacao embarcacao) throws EmbarcacaoJaCadastradaException;
 
     void alterarEmbarcacao(Embarcacao embarcacao) throws EmbarcacaoNaoCadastradaException;
 
     void deletarEmbarcacao(Embarcacao embarcacao) throws EmbarcacaoNaoCadastradaException;
 
-    Embarcacao buscarEmbarcacao(int ID) throws EmbarcacaoNaoCadastradaException;
+    Embarcacao buscarEmbarcacao(String ID) throws EmbarcacaoNaoCadastradaException;
 
     List <Embarcacao> getAll(); 
+    List <Embarcacao> getAll(String cnpj);
 }

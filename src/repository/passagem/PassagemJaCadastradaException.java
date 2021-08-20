@@ -6,7 +6,5 @@ public class PassagemJaCadastradaException extends Exception{
 		super("Passagem já cadastrada");
 		
 	}
-	
-	
 
 }

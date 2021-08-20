@@ -13,13 +13,14 @@ public class RepositorioEmbarcacaoLista implements RepositorioEmbarcacao {
     }
 
     @Override
-    public void inserirEmbarcacao(Embarcacao embarcacao) throws EmbarcacaoJaCadastradaException{
+    public Embarcacao inserirEmbarcacao(Embarcacao embarcacao) throws EmbarcacaoJaCadastradaException{
         try{
             buscarEmbarcacao(embarcacao.getId());
             throw new EmbarcacaoJaCadastradaException();
         }catch (EmbarcacaoNaoCadastradaException ex){
             embarcacoes.add(embarcacao);
         }
+		return embarcacao;
     }
 
     @Override
@@ -36,9 +37,9 @@ public class RepositorioEmbarcacaoLista implements RepositorioEmbarcacao {
     
 
     @Override
-    public Embarcacao buscarEmbarcacao(int ID) throws EmbarcacaoNaoCadastradaException{
+    public Embarcacao buscarEmbarcacao(String ID) throws EmbarcacaoNaoCadastradaException{
         for(Embarcacao embarcacao : embarcacoes){
-            if(embarcacao.getId() == ID){
+            if(embarcacao.getId().equals(ID)){
                 return embarcacao;
             }
         }
@@ -49,5 +50,16 @@ public class RepositorioEmbarcacaoLista implements RepositorioEmbarcacao {
     public List<Embarcacao> getAll() {
         return new ArrayList<>(embarcacoes);
     }
+
+	@Override
+	public List<Embarcacao> getAll(String cnpj) {
+		List<Embarcacao> lista = new ArrayList<>();
+        for (Embarcacao embarcacao : embarcacoes) {
+            if (embarcacao.getProprietário().getCnpj().equals(cnpj)) {
+                lista.add(embarcacao);
+            }
+        }
+        return lista;
+	}
 
 }
