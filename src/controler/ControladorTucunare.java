@@ -34,6 +34,7 @@ public class ControladorTucunare {
             repositorioViagem = new RepositorioViagemLista();
         }
         
+        //                     E M B A R C A Ç Ã O
         public Embarcacao inserirEmbarcacao(Embarcacao embarcacao) throws EmbarcacaoJaCadastradaException {
             return repositorioEmbarcacao.inserirEmbarcacao(embarcacao);
         }
@@ -60,6 +61,8 @@ public class ControladorTucunare {
         	return repositorioEmbarcacao.getAll(cnpj);
         }
         
+        //                     E M P R E S A
+
         public void inserirEmpresa(Empresa empresa) throws EmpresaJaCadastradaException {
             repositorioEmpresa.inserirEmpresa(empresa);
         }
