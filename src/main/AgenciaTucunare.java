@@ -1,5 +1,6 @@
 package main;
 
+import controler.ControladorException;
 import controler.ControladorTucunare;
 import model.embarcacao.Embarcacao;
 import model.empresa.Empresa;
@@ -25,17 +26,17 @@ public class AgenciaTucunare{
     	
         int opcao;
         do{
-        	System.out.println("=============»  AGÊNCIA TUCUNARÉ  «=============");
-            System.out.println("=============»   MENU PRINCIPAL  «==============");
-            System.out.println("                             ===================");
-            System.out.println("  1. EMPRESAS                ===================");
-            System.out.println("  2. EMBACAÇÕES              ===================");
-            System.out.println("  3. VIAGENS                 ===================");
-            System.out.println("  4. LINHAS                  ===================");
-            System.out.println("  5. COMPRAR PASSAGEM        ===================");
-            System.out.println("  0. SAIR                    ===================");
-            System.out.println("                             ===================");
-            System.out.println("================================================");    
+        	System.out.println("============= AGÊNCIA TUCUNARÉ =================");
+            System.out.println("============== MENU PRINCIPAL  ===================");
+            System.out.println("                               ===================");
+            System.out.println("  1. EMPRESAS                  ===================");
+            System.out.println("  2. EMBACAÇÕES                =================");
+            System.out.println("  3. VIAGENS                   ===================");
+            System.out.println("  4. LINHAS                    ===================");
+            System.out.println("  5. COMPRAR PASSAGEM          ===================");
+            System.out.println("  0. SAIR                      ===================");
+            System.out.println("                               ===================");
+            System.out.println("==================================================");    
             //Lendo e interpretando a opção fornecida
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
@@ -78,6 +79,8 @@ public class AgenciaTucunare{
 
             Embarcacao e1 = new Embarcacao("Boto",100, empresa01);
             controlador.inserirEmbarcacao(e1);
+            Embarcacao e3 = new Embarcacao("Bajara", 6, empresa01);
+            controlador.inserirEmbarcacao(e3);
             Embarcacao e2 = new Embarcacao("Barcarena",70, empresa02);
             controlador.inserirEmbarcacao(e2);
 
@@ -100,15 +103,15 @@ public class AgenciaTucunare{
         int opcao;
         do{
             System.out.println("=============»  EMPRESAS  «=============");
-            System.out.println("                             ===================");
-            System.out.println("  1. CRIAR UMA NOVA EMPRESA  ===================");
-            System.out.println("  2. EXCLUIR UMA EMPRESA     ===================");
-            System.out.println("  3. ALTERAR UMA EMPRESA     ===================");
-            System.out.println("  4. LISTAR EMPRESAS         ===================");
-            System.out.println("  5. BUSCAR EMPRESA          ===================");
-            System.out.println("  0. SAIR                    ===================");
-            System.out.println("                             ===================");
-            System.out.println("================================================");  
+            System.out.println("                                ===================");
+            System.out.println("  1. CADASTRAR UMA NOVA EMPRESA ===================");
+            System.out.println("  2. EXCLUIR UMA EMPRESA        ===================");
+            System.out.println("  3. ALTERAR UMA EMPRESA        ===================");
+            System.out.println("  4. LISTAR EMPRESAS            ===================");
+            System.out.println("  5. BUSCAR EMPRESA             ===================");
+            System.out.println("  0. SAIR                       ===================");
+            System.out.println("                                ===================");
+            System.out.println("===================================================");  
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
             } catch (Exception e) {
@@ -137,19 +140,136 @@ public class AgenciaTucunare{
 
     }
     public static void criarEmpresa(){
-
+        limpaTela();      
+        System.out.println("=============== CADASTRAR UMA NOVA EMPRESA ===================");
+        System.out.println("                                           ===================");
+        
+        try{
+            System.out.println("  1. QUAL O CNPJ DA EMPRESA? ===================");
+            System.out.print("CNPJ: ");
+            String cnpj = scanner.nextLine();
+            System.out.println("Qual o nome da empresa?");
+            System.out.print("Nome: ");
+            String nome = scanner.nextLine();
+            Empresa empresa = new Empresa(cnpj, nome);
+            controlador.inserirEmpresa(empresa);
+            System.out.println("Cadastro feito com sucesso!");
+        }catch(EmpresaJaCadastradaException ex ){
+            System.err.println(ex.getMessage());
+        }
+        System.out.println("tecle <enter> para voltar");
+        scanner.nextLine();
+        System.out.println("                               ===================");
+        System.out.println("=================================================="); 
     }
     public static void excluirEmpresa(){
+        limpaTela();
+        System.out.println("=========== EXCLUIR EMPRESA ===================");
+        System.out.println("1. Qual o CNPJ da empresa?  ===================");
+        System.out.print("CNPJ: ");
+        String cnpj = scanner.nextLine();
 
+        try {
+            Empresa empresa = controlador.buscarEmpresa(cnpj);
+            System.out.println();
+            System.out.println("Empresa: " + empresa.getNome() + "     ===================");
+            System.out.println("CNPJ: " + empresa.getCnpj() + "                     ===================");
+            System.out.println();
+
+            System.out.println("Exclui essa empresa? (s/n)? ===================");
+            String resposta = scanner.nextLine();
+
+            if (resposta.equalsIgnoreCase("s")) {
+                controlador.deletarEmpresa(empresa);
+                System.out.println("Empresa excluida!");
+            }
+
+        } catch (EmpresaNaoCadastradaException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println("                            ===================");
+        System.out.println("tecle <enter> para voltar   ===================");
+        System.out.println("                            ===================");
+        System.out.println("===============================================");
+        scanner.nextLine();
     }
     public static void alterarEmpresa(){
+        limpaTela();
+        System.out.println("=========== ALTERAR NOME ===================");
+        System.out.println("1. Qual o CNPJ da empresa?  ===================");
+        System.out.print("CNPJ: ");
+        String cnpj = scanner.nextLine();
+        try {
+            Empresa empresa = controlador.buscarEmpresa(cnpj);
+            System.out.println();
+            System.out.println("Empresa: " + empresa.getNome() + "     ===================");
+            System.out.println("CNPJ: " + empresa.getCnpj() + "                     ===================");
+            System.out.println();
 
+            System.out.println("Qual o novo nome da empresa? ===================");
+            String nome = scanner.nextLine();
+            empresa.setNome(nome);
+            controlador.AlterarEmpresa(empresa);
+            System.out.println("Nome alterado!");
+
+        } catch (EmpresaNaoCadastradaException ex) {
+            System.err.println(ex.getMessage());
+        }
+        System.out.println("                            ===================");
+        System.out.println("tecle <enter> para voltar   ===================");
+        System.out.println("                            ===================");
+        System.out.println("===============================================");
+        scanner.nextLine();
     }
     public static void listarEmpresas(){
-
+        limpaTela();
+        List<Empresa> empresas = controlador.getAllEmpresa();
+        List<Embarcacao> embarcacoes;
+        System.out.println("=========== LISTAR EMPRESAS ======================");
+        System.out.println("EMPRESA           CNPJ           EMBARCAÇÕES ===");
+        System.out.println("================= ============== =================");
+        for (Empresa empresa : empresas){
+            System.out.printf("%-17s ", empresa.getNome());
+            System.out.printf("%-14s ", empresa.getCnpj());
+            embarcacoes = controlador.getAll(empresa.getCnpj());
+            for(Embarcacao embarcacao : embarcacoes){
+                System.out.printf("%-38s", embarcacao.getNome() + "\n");
+            }
+            System.out.println("");
+        }
+        System.out.println("                                             =====");
+        System.out.println("tecle <enter> para voltar                    =====");
+        System.out.println("                                             =====");
+        System.out.println("==================================================");
+        scanner.nextLine();
     }
     public static void buscarEmpresa(){
-
+        limpaTela();
+        List<Embarcacao> embarcacoes;
+        System.out.println("=========== BUSCAR EMPRESA ======================");
+        System.out.println("Qual o CNPJ da empresa?");
+        System.out.print("CNPJ: ");
+        String cnpj = scanner.nextLine();
+        try{
+            Empresa empresa = controlador.buscarEmpresa(cnpj);
+            System.out.println("                                             =====");
+            System.out.println("EMPRESA           CNPJ           EMBARCAÇÕES ===");
+            System.out.println("================= ============== =================");
+            System.out.printf("%-17s ", empresa.getNome());
+            System.out.printf("%-14s ", empresa.getCnpj());
+            embarcacoes = controlador.getAll(empresa.getCnpj());
+            for(Embarcacao embarcacao : embarcacoes){
+                System.out.printf("%-38s", embarcacao.getNome() + "\n");
+            }
+        }catch(EmpresaNaoCadastradaException ex){
+            System.err.println(ex.getMessage());
+        }
+        System.out.println("");
+        System.out.println("tecle <enter> para voltar                    =====");
+        System.out.println("                                             =====");
+        System.out.println("==================================================");
+        scanner.nextLine();
     }
 
     //                  M E N U   E M B A R C A Ç Õ E S
@@ -200,7 +320,7 @@ public class AgenciaTucunare{
         System.out.println("======================");
         
         try {
-            System.out.print("CNPJ da Empresa: ");
+            System.out.print("CNPJ da Empresa a qual a embarcação pertence: ");
             String cnpj = scanner.nextLine();
             Empresa empresa = controlador.buscarEmpresa(cnpj);
             System.out.println();
