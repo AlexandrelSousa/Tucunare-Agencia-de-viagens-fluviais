@@ -128,7 +128,7 @@ public class AgenciaTucunare{
 		
 	}
 
-	public static void limpaTela(){
+	private static void limpaTela(){
         for (int i = 0; i < 25; i++) {
             System.out.println();
         }
@@ -136,7 +136,7 @@ public class AgenciaTucunare{
 
     //              M E N U   E M P R E S A S
 
-    public static void menuEmpresas(){
+    private static void menuEmpresas(){
     	
         int opcao;
         do{
@@ -178,7 +178,7 @@ public class AgenciaTucunare{
         }while(opcao != 0);
 
     }
-    public static void criarEmpresa(){
+    private static void criarEmpresa(){
         limpaTela();      
         System.out.println("=============== CADASTRAR UMA NOVA EMPRESA ===================");
         System.out.println("                                           ===================");
@@ -201,7 +201,7 @@ public class AgenciaTucunare{
         System.out.println("                               ===================");
         System.out.println("=================================================="); 
     }
-    public static void excluirEmpresa(){
+    private static void excluirEmpresa(){
         limpaTela();
         System.out.println("=========== EXCLUIR EMPRESA ===================");
         System.out.println("1. Qual o CNPJ da empresa?  ===================");
@@ -233,7 +233,7 @@ public class AgenciaTucunare{
         System.out.println("===============================================");
         scanner.nextLine();
     }
-    public static void alterarEmpresa(){
+    private static void alterarEmpresa(){
         limpaTela();
         System.out.println("=========== ALTERAR NOME ===================");
         System.out.println("1. Qual o CNPJ da empresa?  ===================");
@@ -261,7 +261,7 @@ public class AgenciaTucunare{
         System.out.println("===============================================");
         scanner.nextLine();
     }
-    public static void listarEmpresas(){
+    private static void listarEmpresas(){
         limpaTela();
         List<Empresa> empresas = controlador.getAllEmpresa();
         System.out.println("================ LISTAR EMPRESAS =================");
@@ -279,7 +279,7 @@ public class AgenciaTucunare{
         System.out.println("==================================================");
         scanner.nextLine();
     }
-    public static void buscarEmpresa(){
+    private static void buscarEmpresa(){
         limpaTela();
         List<Embarcacao> embarcacoes;
         System.out.println("================ BUSCAR EMPRESA ========================");
@@ -316,7 +316,7 @@ public class AgenciaTucunare{
 
     //                  M E N U   E M B A R C A Ç Õ E S
 
-    public static void menuEmbarcacoes(){
+    private static void menuEmbarcacoes(){
     	
         int opcao;
         do{
@@ -357,7 +357,7 @@ public class AgenciaTucunare{
             }
         }while(opcao != 0);
     }
-    public static void criarEmbarcacao() {
+    private static void criarEmbarcacao() {
     	limpaTela();
     	System.out.println("============= CADASTRAR UMA NOVA EMBARCAÇÃO ==================");
     	System.out.println("                                                ==============");
@@ -391,7 +391,7 @@ public class AgenciaTucunare{
 
     } 
     
-    public static void excluirEmbarcacao(){
+    private static void excluirEmbarcacao(){
     	limpaTela();
         System.out.println("Excluir Embarcação");
         System.out.println("==================");
@@ -422,7 +422,7 @@ public class AgenciaTucunare{
         scanner.nextLine();
 
     }
-    public static void alterarEmbarcacao(){
+    private static void alterarEmbarcacao(){
     	
     	limpaTela();
         System.out.println("Alterar Nome da Embarcação");
@@ -456,7 +456,7 @@ public class AgenciaTucunare{
         scanner.nextLine();
 
     }
-    public static void listarEmbarcacoes(){
+    private static void listarEmbarcacoes(){
     	 limpaTela();
     	 
          System.out.println("======>> Lista de Embarcações <<========");
@@ -476,7 +476,7 @@ public class AgenciaTucunare{
              scanner.nextLine();
     }
 
-    public static void buscarEmbarcacao(){
+    private static void buscarEmbarcacao(){
     	limpaTela();
         System.out.println("Consultar Embarcação");
         System.out.println("====================");
@@ -508,7 +508,7 @@ public class AgenciaTucunare{
 
     //                  M E N U   V I A G E N S
     
-    public static void menuViagens(){
+    private static void menuViagens(){
     	
         int opcao;
         do{
@@ -520,6 +520,7 @@ public class AgenciaTucunare{
             System.out.println("  3. ALTERAR UMA VIAGEM        ===================");
             System.out.println("  4. LISTAR VIAGENS            ===================");
             System.out.println("  5. BUSCAR VIAGEM             ===================");
+            System.out.println("  6. LISTAR PASSAGEIROS        ===================");
             System.out.println("  0. MENU PRINCIPAL            ===================");
             System.out.println("                               ===================");
             System.out.println("==================================================");  
@@ -546,10 +547,13 @@ public class AgenciaTucunare{
                     break;
                 case 5:
                     buscarViagem();
+                case 6:
+                    listarPassageiros();
             }
         }while(opcao != 0);
     }
-    public static void cadastrarViagem(){
+
+	private static void cadastrarViagem(){
     	limpaTela();
     	System.out.println("============= CADASTRAR UMA NOVA VIAGEM ==================");
     	System.out.println("                                            ==============");
@@ -578,7 +582,7 @@ public class AgenciaTucunare{
         scanner.nextLine();
 
     }
-    public static void cancelarViagem(){
+    private static void cancelarViagem(){
     	
     	limpaTela();
         System.out.println("=========== CANCELAR VIAGEM ===================");
@@ -616,7 +620,7 @@ public class AgenciaTucunare{
     }
 
     @SuppressWarnings("unlikely-arg-type")
-	public static void alterarViagem(){
+	private static void alterarViagem(){
     	
     	limpaTela();
         System.out.println("      Alterar Viagem      ");
@@ -653,7 +657,7 @@ public class AgenciaTucunare{
 
     }
     
-    public static void listarViagens(){
+    private static void listarViagens(){
     	
     	limpaTela();
         System.out.println("======>> Lista de Viagens <<========");
@@ -675,7 +679,7 @@ public class AgenciaTucunare{
 
     }
     
-    public static void buscarViagem(){
+    private static void buscarViagem(){
     	limpaTela();
         System.out.println("Consultar Viagem");
         System.out.println("================");
@@ -703,19 +707,52 @@ public class AgenciaTucunare{
         System.out.println();
         System.out.println("tecle <enter> para voltar");
         scanner.nextLine();
+        
+
 
     }
+    
+    private static void listarPassageiros() {
+    	limpaTela();
+    	try {
+    		System.out.print("Id da Viagem: ");
+            String id = scanner.nextLine();
+            Viagem viagem = controlador.buscarViagem(id);
+            
+            limpaTela();
+            System.out.println("=====>> Lista de Passageiros <<========");
+            System.out.println("=======================================");
+            
+            List<Passagem> passagens = controlador.getAllPassagem(id);
+                System.out.printf("RG     Nome               \n");
+                System.out.printf("====== ================================ \n");
+                
+                for (Passagem passagem: passagens) {
+                    System.out.printf("%6s ", passagem.getRG());
+                    System.out.printf("%-18s \n", passagem.getNome());
+           
+                }
+    	} catch (ViagemNaoCadastradaException ex) {
+            System.err.println(ex.getMessage());
+        }
+    	
+    	System.out.println("=======================================");
+        System.out.println();
+        System.out.println("tecle <enter> para voltar");
+        scanner.nextLine();
+	
+	}
 
     //                  M E N U   L I N H A S
 
-    public static void menuLinhas(){
+    private static void menuLinhas(){
     	
         int opcao;
         do{
         	limpaTela();
             System.out.println("==============   LINHAS   ===================");
             System.out.println("                               ===================");
-            System.out.println("  1. CRIAR UMA NOVA LINHA      ===================");
+            System.out.println("  1. CADASTRAR UMA NOVA LINHA  ===================");
             System.out.println("  2. EXCLUIR UMA LINHA         ===================");
             System.out.println("  3. ALTERAR UMA LINHA         ===================");
             System.out.println("  4. LISTAR LINHAS             ===================");
@@ -733,7 +770,7 @@ public class AgenciaTucunare{
                     limpaTela();
                     break;
                 case 1:
-                    criarLinha();
+                    cadastrarLinha();
                     break;
                 case 2:
                     excluirLinha();
@@ -749,25 +786,200 @@ public class AgenciaTucunare{
             }
         }while(opcao != 0);
     }
-    public static void criarLinha(){
+    private static void cadastrarLinha(){
+    	limpaTela();
+    	System.out.println("============= CADASTRAR UMA NOVA LINHA ==================");
+    	System.out.println("                                           ==============");
+        
+        try {
+            System.out.print("ID da embarcação a qual a linha irá ser criada: ");
+            String id = scanner.nextLine();
+            Embarcacao embarcacao = controlador.buscarEmbarcacao(id);
+            System.out.println();
+            
+            System.out.print("Nome da Linha: ");
+            String nome = scanner.nextLine();
+            System.out.print("Origem da Linha: ");
+            String origem = scanner.nextLine();
+            System.out.print("Destino da Linha: ");
+            String destino = scanner.nextLine();
+            System.out.print("Valor da Passagem: ");
+            String valorPassagem = scanner.nextLine();
+            double valorPassagem1 = Double.valueOf(valorPassagem).doubleValue();
+            
+			Linha linha = new Linha(nome,origem,destino,valorPassagem1,embarcacao);
+        	controlador.inserirLinha(linha);
+        	System.out.println("                                                ==============");
+            System.out.println("Linha " + linha.getNome() + " Cadastrada! ");
+            System.out.println("                                                ==============");	
+            	
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+      
+        System.out.println("                                                ==============");
+        System.out.println("tecle <enter> para voltar                       ==============");
+        System.out.println("==============================================================");
+        scanner.nextLine();
 
     }
-    public static void excluirLinha(){
+    private static void excluirLinha(){
+    	limpaTela();
+        System.out.println("=========== EXCLUIR LINHA ===================");
+        System.out.println("1. Qual o id da LINHA?  =====================");
+        System.out.print("id: ");
+        String id = scanner.nextLine();
+
+        try {
+            Linha linha = controlador.buscarLinha(id);
+            System.out.println();
+            System.out.println("ID............: " + linha.getID());
+            System.out.println("Nome..........: " + linha.getNome());
+            System.out.println("Origem........: " + linha.getOrigem());
+            System.out.println("Destino.......: " + linha.getDestino());
+            System.out.println("Embarcação....: " + linha.getEmbarcacao());
+            System.out.println();
+
+            System.out.println("Excluir essa Linha? (s/n)? ===================");
+            String resposta = scanner.nextLine();
+            System.out.println();
+
+            if (resposta.equalsIgnoreCase("s")) {
+                controlador.deletarLinha(linha);
+                System.out.println("Linha Excluída!");
+            }else {
+            	System.out.println("Linha Não Excluída!");
+            }
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println("                            ===================");
+        System.out.println("tecle <enter> para voltar   ===================");
+        System.out.println("                            ===================");
+        System.out.println("===============================================");
+        scanner.nextLine();
 
     }
-    public static void alterarLinha(){
+    private static void alterarLinha(){
+    	limpaTela();
+        System.out.println("      Alterar Linha      ");
+        System.out.println("==========================");
+        System.out.print("ID da Linha: ");
+        String id = scanner.nextLine();
+
+        try {
+            Linha linha = controlador.buscarLinha(id);
+
+            System.out.println();
+            System.out.println("Nome: " + linha.getNome());
+            System.out.print("Nome (<enter> = Não alterar): ");
+            String nome = scanner.nextLine();
+            if (!nome.equals("")) {
+                linha.setNome(nome);
+            }
+            
+            System.out.println();
+            System.out.println("Origem: " + linha.getOrigem());
+            System.out.print("Origem (<enter> = Não alterar): ");
+            String origem = scanner.nextLine();
+            if (!origem.equals("")) {
+                linha.setOrigem(origem);
+            }
+            
+            System.out.println();
+            System.out.println("Destino: " + linha.getDestino());
+            System.out.print("Origem (<enter> = Não alterar): ");
+            String destino = scanner.nextLine();
+            if (!destino.equals("")) {
+                linha.setDestino(destino);
+            }
+            
+            System.out.println();
+            System.out.println("Valor da Passagem: " + linha.getValorPassagem());
+            System.out.print("Valor da Passagem (<enter> = Não alterar): ");
+            String valorPassagem = scanner.nextLine();
+            double valorPassagem1 = Double.valueOf(valorPassagem).doubleValue();
+            if (valorPassagem1 != linha.getValorPassagem()) {
+                linha.setValorPassagem(valorPassagem1);
+            }
+            
+            System.out.println();
+            controlador.alterarLinha(linha);
+            System.out.println("Linha Alterada!");
+            System.out.println();
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println();
+        System.out.println("tecle <enter> para voltar");
+        scanner.nextLine();
+
 
     }
-    public static void listarLinhas(){
+    private static void listarLinhas(){
+    	limpaTela();
+        System.out.println("==============================>> Lista de Linhas <<======================================");
+        System.out.println("=========================================================================================");
+        
+        List<Linha> linhas = controlador.getAllLinha();
+            System.out.printf("Id     Linha                 Origem      Destino     Embarcação         Valor da Passagem \n");
+            System.out.printf("====== ===================== =========== =========== ================== =================\n");
+            for (Linha linha: linhas) {
+                System.out.printf("%6s ", linha.getID());
+                System.out.printf("%-21s ", linha.getNome());
+                System.out.printf("%-11s ", linha.getOrigem());
+                System.out.printf("%-11s ", linha.getDestino());
+                System.out.printf("%-18s ", linha.getEmbarcacao().getNome());
+                System.out.printf("R$ %14.2f \n", linha.getValorPassagem());
+       
+            }
+            System.out.println("=========================================================================================");
+            System.out.println();
+            System.out.println("tecle <enter> para voltar");
+            scanner.nextLine();
+
 
     }
-    public static void buscarLinha(){
+    private static void buscarLinha(){
+    	limpaTela();
+        System.out.println("Consultar Linha");
+        System.out.println("===============");
+        System.out.println();
+        System.out.print("Id da Linha: ");
+        String id = scanner.nextLine();
+        limpaTela();
+        
+        try {
+        	System.out.println("  Informações da Linha ");
+            System.out.println("=========================");
+            Linha linha = controlador.buscarLinha(id);
+            System.out.println();
+            System.out.println("Id.................: " + linha.getID());
+            System.out.println("Nome...............: " + linha.getNome());
+            System.out.println("Origem.............: " + linha.getOrigem());
+            System.out.println("Destino............: " + linha.getDestino());
+            System.out.printf("Valor da Passagem...: R$ %.2f\n", linha.getValorPassagem());
+            System.out.println("Embarcação.........: " + linha.getEmbarcacao().getNome());
+            System.out.println("Empresa............: " + linha.getEmbarcacao().getProprietário().getNome());
+            System.out.println();
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println();
+        System.out.println("tecle <enter> para voltar");
+        scanner.nextLine();
 
     }
 
     //                  C O M P R A R    P A S S A G E M
 
-    public static void menuPassagem(){
+    private static void menuPassagem(){
         
         int opcao;
         do{
@@ -809,19 +1021,19 @@ public class AgenciaTucunare{
             }
         }while(opcao != 0);
     }
-    public static void comprarPassagem(){
+    private static void comprarPassagem(){
 
     }
-    public static void cancelarPassagem(){
+    private static void cancelarPassagem(){
 
     }
-    public static void alterarPassagem(){
+    private static void alterarPassagem(){
 
     }
-    public static void listarPassagens(){
+    private static void listarPassagens(){
 
     }
-    public static void tirarSegundaVia(){
+    private static void tirarSegundaVia(){
         
     }
 

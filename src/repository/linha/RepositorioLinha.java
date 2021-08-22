@@ -13,6 +13,6 @@ public interface RepositorioLinha {
 
     Linha buscarLinha(String ID) throws LinhaNaoCadastradaException;
 
-    List <Linha> getAll(String id);  
+    List <Linha> getAll();  
 
 }

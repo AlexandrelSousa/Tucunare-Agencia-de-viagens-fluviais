@@ -51,7 +51,13 @@ public class RepositorioPassagemLista implements RepositorioPassagem{
 	}
 	@Override
 	public List<Passagem> getAll(String id) {
-		return new ArrayList<>(passagens);
+		List<Passagem> lista = new ArrayList<>();
+        for (Passagem passagem : passagens) {
+            if (passagem.getViagem().getId().equals(id)) {
+                lista.add(passagem);
+            }
+        }
+        return lista;
 	}
     
 	

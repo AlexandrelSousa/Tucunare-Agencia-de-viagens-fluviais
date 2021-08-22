@@ -47,7 +47,7 @@ public class RepositorioLinhaLista implements RepositorioLinha {
     }
 
     @Override
-    public List<Linha> getAll(String id) {
+    public List<Linha> getAll() {
         return new ArrayList<>(linhas);
     }
 

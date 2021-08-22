@@ -117,6 +117,7 @@ public class ControladorTucunare {
         	return repositorioViagem.getAll();
         }
         
+        
         //                    L I N H A
         
         public Linha inserirLinha(Linha linha) throws LinhaJaCadastradaException{
@@ -135,8 +136,8 @@ public class ControladorTucunare {
         	return repositorioLinha.buscarLinha(id);
         }
         
-        public List<Linha> getAllLinha(String id) {
-        	return repositorioLinha.getAll(id);
+        public List<Linha> getAllLinha() {
+        	return repositorioLinha.getAll();
         }
         
         //                   P A S S A G E M
