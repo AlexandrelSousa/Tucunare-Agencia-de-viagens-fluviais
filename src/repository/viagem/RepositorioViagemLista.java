@@ -16,13 +16,14 @@ public class RepositorioViagemLista implements RepositorioViagem {
     }
 
 	@Override
-	public void inserirViagem(Viagem viagem) throws ViagemJaCadastradaException {
+	public Viagem inserirViagem(Viagem viagem) throws ViagemJaCadastradaException {
 		try{
             buscarViagem(viagem.getId());
             throw new ViagemJaCadastradaException();
         }catch (ViagemNaoCadastradaException ex){
             viagens.add(viagem);
         }
+		return viagem;
 		
 	}
 
@@ -41,9 +42,9 @@ public class RepositorioViagemLista implements RepositorioViagem {
 	}
 
 	@Override
-	public Viagem buscarViagem(int Id) throws ViagemNaoCadastradaException {
+	public Viagem buscarViagem(String Id) throws ViagemNaoCadastradaException {
 		for(Viagem viagem : viagens){
-            if(viagem.getId() == Id){
+            if(viagem.getId().equals(Id)){
                 return viagem;
             }
         }

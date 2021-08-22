@@ -13,13 +13,14 @@ public class RepositorioLinhaLista implements RepositorioLinha {
     }
 
     @Override
-    public void inserirLinha(Linha linha) throws LinhaJaCadastradaException{
+    public Linha inserirLinha(Linha linha) throws LinhaJaCadastradaException{
         try{
             buscarLinha(linha.getID());
             throw new LinhaJaCadastradaException();
         }catch (LinhaNaoCadastradaException ex){
             linhas.add(linha);
         }
+		return linha;
     }
 
     @Override
@@ -36,9 +37,9 @@ public class RepositorioLinhaLista implements RepositorioLinha {
     
 
     @Override
-    public Linha buscarLinha(int ID) throws LinhaNaoCadastradaException{
+    public Linha buscarLinha(String ID) throws LinhaNaoCadastradaException{
         for(Linha linha : linhas){
-            if(linha.getID() == ID){
+            if(linha.getID().equals(ID)){
                 return linha;
             }
         }
@@ -46,7 +47,7 @@ public class RepositorioLinhaLista implements RepositorioLinha {
     }
 
     @Override
-    public List<Linha> getAll() {
+    public List<Linha> getAll(String id) {
         return new ArrayList<>(linhas);
     }
 

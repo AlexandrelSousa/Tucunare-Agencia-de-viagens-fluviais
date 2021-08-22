@@ -4,23 +4,29 @@ import model.viagem.Viagem;
 public class Passagem {
 
     //Atributos
-    private int ID=0;
+	
+	private static int prox_ID= 1;
+	
+    private String ID;
     private String RG;
     private String nome;
     private Viagem viagem;
     
     //Construtor
-    public Passagem(int ID, String RG, String nome, Viagem viagem){
-        this.ID = ID;
+    public Passagem(String RG, String nome, Viagem viagem){
+        this.ID = String.valueOf(Passagem.prox_ID);
         this.RG = RG;
         this.nome = nome;
         this.setViagem(viagem);
+        
+        // Incremento do id da Passagem
+        prox_ID ++; 
     }
     //Gets e Sets
-    public int getID(){
+    public String getID(){
         return ID;
     }
-    public void setID(int ID){
+    public void setID(String ID){
         this.ID = ID;
     }
     public String getRG(){

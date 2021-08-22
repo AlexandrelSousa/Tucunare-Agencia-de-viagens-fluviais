@@ -12,8 +12,8 @@ public interface RepositorioPassagem {
 	
 	void deleterPassagem(Passagem passagem) throws PassagemNaoCadastradaException;
 	
-	Passagem buscarPassagem(int ID) throws PassagemNaoCadastradaException;
+	Passagem buscarPassagem(String ID) throws PassagemNaoCadastradaException;
 	
-	List<Passagem> getAll(int id);
+	List<Passagem> getAll(String id);
     
 }

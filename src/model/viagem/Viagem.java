@@ -5,23 +5,28 @@ import model.linha.Linha;
 
 public class Viagem {
 	
-	private int id;
+	private static int prox_ID = 2000;
+	
+	private String id;
 	private Date data;
 	private Linha linha;
 	
 	//Construtor
-	public Viagem(int id, Date data, Linha linha) {
-		this.id = id;
+	public Viagem(Date data, Linha linha) {
+		this.id = String.valueOf(Viagem.prox_ID);
 		this.data = data;
 		this.linha = linha;
+		
+		//  Incremento do id da Viagem
+		prox_ID ++;
 	}
     
 	//Métodos gets e sets
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
