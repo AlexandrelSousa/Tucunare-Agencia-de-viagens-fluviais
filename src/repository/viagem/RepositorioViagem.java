@@ -6,13 +6,14 @@ import model.viagem.Viagem;
 
 public interface RepositorioViagem {
 	
-	void inserirViagem(Viagem viagem) throws ViagemJaCadastradaException;
+	Viagem inserirViagem(Viagem viagem) throws ViagemJaCadastradaException;
 	
 	void alterarViagem(Viagem viagem) throws ViagemNaoCadastradaException;
 	
 	void deletarViagem(Viagem viagem) throws ViagemNaoCadastradaException;
 	
-	Viagem buscarViagem(int Id) throws ViagemNaoCadastradaException;
+	Viagem buscarViagem(String Id) throws ViagemNaoCadastradaException;
 	
-	List<Viagem> getAll();    
+	List<Viagem> getAll();
+    
 }

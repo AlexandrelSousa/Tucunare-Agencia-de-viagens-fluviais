@@ -3,7 +3,9 @@ import model.embarcacao.Embarcacao;
 
 public class Linha {
     
-    private int ID = 0;
+	private static int prox_ID= 1000;
+	
+    private String ID;
     private String nome;
     private String origem;
     private String destino;
@@ -11,20 +13,24 @@ public class Linha {
     private Embarcacao embarcacao;
 
     //Construtor
-    public Linha(int ID, String nome, String origem, String destino, double valorPassagem, Embarcacao embarcacao){
-        this.ID = ID;
+    public Linha(String nome, String origem, String destino, double valorPassagem, Embarcacao embarcacao){
+        this.ID = String.valueOf(Linha.prox_ID);
         this.nome = nome;
         this.origem = origem;
         this.destino = destino;
         this.valorPassagem = valorPassagem;
-        this.embarcacao = embarcacao;
+        this.setEmbarcacao(embarcacao);
+        
+        // Incremento do id da Linha
+        prox_ID ++;
+        
     }
 
     //Métodos gets e sets
-    public int getID(){
+    public String getID(){
         return ID;
     }
-    public void setID(int ID){
+    public void setID(String ID){
         this.ID = ID;
     }
     public String getNome(){
@@ -51,5 +57,13 @@ public class Linha {
     public void setValorPassagem(double valorPassagem){
         this.valorPassagem = valorPassagem;
     }
+
+	public Embarcacao getEmbarcacao() {
+		return embarcacao;
+	}
+
+	public void setEmbarcacao(Embarcacao embarcacao) {
+		this.embarcacao = embarcacao;
+	}
 
 }

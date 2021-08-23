@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface RepositorioLinha {
     
-    void inserirLinha(Linha linha) throws LinhaJaCadastradaException;
+    Linha inserirLinha(Linha linha) throws LinhaJaCadastradaException;
 
     void alterarLinha(Linha linha) throws LinhaNaoCadastradaException;
 
     void deletarLinha(Linha linha) throws LinhaNaoCadastradaException;
 
-    Linha buscarLinha(int ID) throws LinhaNaoCadastradaException;
+    Linha buscarLinha(String ID) throws LinhaNaoCadastradaException;
 
     List <Linha> getAll();  
 

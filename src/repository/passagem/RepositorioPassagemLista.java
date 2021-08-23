@@ -41,17 +41,23 @@ public class RepositorioPassagemLista implements RepositorioPassagem{
 	}
 
 	@Override
-	public Passagem buscarPassagem(int ID) throws PassagemNaoCadastradaException {
+	public Passagem buscarPassagem(String ID) throws PassagemNaoCadastradaException {
 		for(Passagem passagem : passagens){
-            if(passagem.getID() == ID){
+            if(passagem.getID().equals(ID)){
                 return passagem;
             }
         }
         throw new PassagemNaoCadastradaException();
 	}
 	@Override
-	public List<Passagem> getAll(int id) {
-		return new ArrayList<>(passagens);
+	public List<Passagem> getAll(String id) {
+		List<Passagem> lista = new ArrayList<>();
+        for (Passagem passagem : passagens) {
+            if (passagem.getViagem().getId().equals(id)) {
+                lista.add(passagem);
+            }
+        }
+        return lista;
 	}
     
 	
