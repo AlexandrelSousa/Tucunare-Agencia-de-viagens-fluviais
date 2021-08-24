@@ -44,7 +44,7 @@ public class AgenciaTucunare{
             System.out.println("  2. EMBACAÇÕES                ===================");
             System.out.println("  3. VIAGENS                   ===================");
             System.out.println("  4. LINHAS                    ===================");
-            System.out.println("  5. COMPRAR PASSAGEM          ===================");
+            System.out.println("  5. PASSAGEM                  ===================");
             System.out.println("  0. SAIR                      ===================");
             System.out.println("                               ===================");
             System.out.println("==================================================");    
@@ -222,7 +222,9 @@ public class AgenciaTucunare{
                 controlador.deletarEmpresa(empresa);
                 System.out.println("Empresa excluida!");
             }
-
+            else {
+            	System.out.println("Empresa não excluída!");
+            }
         } catch (EmpresaNaoCadastradaException ex) {
             System.err.println(ex.getMessage());
         }
@@ -412,6 +414,8 @@ public class AgenciaTucunare{
             if (resposta.equalsIgnoreCase("s")) {
             	controlador.deletarEmbarcacao(embarcacao);
             	System.out.println("Embarcação excluída!");
+            }else {
+            	System.out.println("Embarcação não excluída!");
             }
             
         } catch (EmbarcacaoNaoCadastradaException ex) {
@@ -462,12 +466,12 @@ public class AgenciaTucunare{
          System.out.println("======>> Lista de Embarcações <<========");
          System.out.println("========================================");
          List<Embarcacao> embarcacoes = controlador.getAllEmbarcacao();
-             System.out.printf("Id     Empresa             Nome       \n");
+             System.out.printf("Id     Nome                Empresa       \n");
              System.out.printf("====== ==================  =============\n");
              for (Embarcacao embarcacao: embarcacoes) {
                  System.out.printf("%6s ", embarcacao.getId());
-                 System.out.printf("%-19s ", embarcacao.getProprietário().getNome());
-                 System.out.printf("%-11s \n", embarcacao.getNome());
+                 System.out.printf("%-19s ", embarcacao.getNome());
+                 System.out.printf("%-11s \n", embarcacao.getProprietário().getNome());
         
              }
              System.out.println("========================================");
@@ -493,7 +497,7 @@ public class AgenciaTucunare{
             System.out.println("Id..........: " + embarcacao.getId());
             System.out.println("Nome........: " + embarcacao.getNome());
             System.out.println("Lotação.....: " + embarcacao.getLotacao());
-            System.out.println("Proprietário: " + embarcacao.getProprietário().getNome());
+            System.out.println("Empresa.....: " + embarcacao.getProprietário().getNome());
             System.out.println();
 
         } catch (EmbarcacaoNaoCadastradaException ex) {
@@ -718,25 +722,33 @@ public class AgenciaTucunare{
     		System.out.print("Id da Viagem: ");
             String id = scanner.nextLine();
             Viagem viagem = controlador.buscarViagem(id);
-            
             limpaTela();
-            System.out.println("=====>> Lista de Passageiros <<========");
-            System.out.println("=======================================");
             
+            System.out.println("======>> Lista de Passageiros <<========");
+            System.out.println("========================================");
             List<Passagem> passagens = controlador.getAllPassagem(id);
-                System.out.printf("RG     Nome               \n");
-                System.out.printf("====== ================================ \n");
-                
-                for (Passagem passagem: passagens) {
-                    System.out.printf("%6s ", passagem.getRG());
+            
+            if (passagens.isEmpty()) {
+            	System.out.println("A viagem Não Possui Passageiros ");
+            } else {
+            	System.out.printf("ID (Viagem) RG        Nome               \n");
+                System.out.printf("=========== ========= ================== \n");
+                	for (Passagem passagem: passagens) {
+                	System.out.printf("%11s ", passagem.getViagem().getId());
+                    System.out.printf("%-9s ", passagem.getRG());
                     System.out.printf("%-18s \n", passagem.getNome());
            
                 }
-    	} catch (ViagemNaoCadastradaException ex) {
-            System.err.println(ex.getMessage());
+            	
+            }
+
+               
+    	} catch ( Exception ex) {
+    		System.err.println(ex.getMessage());
+    		
         }
     	
-    	System.out.println("=======================================");
+    	System.out.println("========================================");
         System.out.println();
         System.out.println("tecle <enter> para voltar");
         scanner.nextLine();
@@ -962,7 +974,7 @@ public class AgenciaTucunare{
             System.out.println("Nome...............: " + linha.getNome());
             System.out.println("Origem.............: " + linha.getOrigem());
             System.out.println("Destino............: " + linha.getDestino());
-            System.out.printf("Valor da Passagem...: R$ %.2f\n", linha.getValorPassagem());
+            System.out.printf("Valor da Passagem..: R$ %.2f\n", linha.getValorPassagem());
             System.out.println("Embarcação.........: " + linha.getEmbarcacao().getNome());
             System.out.println("Empresa............: " + linha.getEmbarcacao().getProprietário().getNome());
             System.out.println();
@@ -977,7 +989,7 @@ public class AgenciaTucunare{
 
     }
 
-    //                  C O M P R A R    P A S S A G E M
+    //                  M E N U    P A S S A G E M
 
     private static void menuPassagem(){
         
@@ -990,7 +1002,8 @@ public class AgenciaTucunare{
             System.out.println("  2. CANCELAR PASSAGEM         ===================");
             System.out.println("  3. ALTERAR PASSAGEM          ===================");
             System.out.println("  4. LISTAR PASSAGENS          ===================");
-            System.out.println("  5. TIRAR SEGUNDA VIA         ===================");
+            System.out.println("  5. BUSCAR PASSAGENS          ===================");
+            System.out.println("  6. TIRAR SEGUNDA VIA         ===================");
             System.out.println("  0. MENU PRINCIPAL            ===================");
             System.out.println("                               ===================");
             System.out.println("==================================================");  
@@ -1016,25 +1029,227 @@ public class AgenciaTucunare{
                     listarPassagens();
                     break;
                 case 5:
-                    tirarSegundaVia();
+                    consultarPassagens();
+                    break;
+                case 6:
+                    retirarSegundaVia();
                     break;
             }
         }while(opcao != 0);
     }
-    private static void comprarPassagem(){
+       
+	private static void comprarPassagem(){
+    	limpaTela();
+    	System.out.println("============= COMPRAR PASSAGEM ==================");
+    	System.out.println("                                   ==============");
+        
+        try {
+            System.out.print("ID da viagem: ");
+            String id = scanner.nextLine();
+            Viagem viagem = controlador.buscarViagem(id);
+            System.out.println();
+            
+            System.out.print("RG do Passageiro: ");
+            String RG = scanner.nextLine();
+            System.out.print("Nome do Passageiro: ");
+            String nome = scanner.nextLine();
+            
+			Passagem passagem = new Passagem(RG, nome, viagem);
+        	controlador.criarPassagem(passagem);
+        	System.out.println("                                                ==============");
+            System.out.println("Passagem para " + passagem.getViagem().getLinha().getNome() + " Cadastrada! ");
+            System.out.println("                                                ==============");	
+            	
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+      
+        System.out.println("                                                ==============");
+        System.out.println("tecle <enter> para voltar                       ==============");
+        System.out.println("==============================================================");
+        scanner.nextLine();
+
 
     }
     private static void cancelarPassagem(){
+    	limpaTela();
+        System.out.println("=========== CANCELAR PASSAGEM ===================");
+        System.out.println("1. Qual o id da Passagem?      =====================");
+        System.out.print("id: ");
+        String id = scanner.nextLine();
+
+        try {
+            Passagem passagem = controlador.buscarPassagem(id);
+            System.out.println();
+            System.out.println("ID............: " + passagem.getID());
+            System.out.println("RG............: " + passagem.getRG());
+            System.out.println("Nome..........: " + passagem.getNome());
+            System.out.println("Viagem........: " + passagem.getViagem().getLinha().getNome());
+            System.out.println();
+
+            System.out.println("Cancelar essa Passagem? (s/n)? ===================");
+            String resposta = scanner.nextLine();
+            System.out.println();
+
+            if (resposta.equalsIgnoreCase("s")) {
+                controlador.deletarPassagem(passagem);
+                System.out.println("Passagem Cancelada!");
+            }else {
+            	System.out.println("Passagem Não Cancelada!");
+            }
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println("                            ===================");
+        System.out.println("tecle <enter> para voltar   ===================");
+        System.out.println("                            ===================");
+        System.out.println("===============================================");
+        scanner.nextLine();
 
     }
     private static void alterarPassagem(){
+    	
+    	limpaTela();
+        System.out.println("      Alterar Passagem      ");
+        System.out.println("============================");
+        System.out.print("ID da Passagem: ");
+        String id = scanner.nextLine();
+
+        try {
+            Passagem passagem = controlador.buscarPassagem(id);
+
+            System.out.println();
+            System.out.println("Nome: " + passagem.getNome());
+            System.out.print("Nome (<enter> = Não alterar): ");
+            String nome = scanner.nextLine();
+            if (!nome.equals("")) {
+                passagem.setNome(nome);
+            }
+            
+            System.out.println();
+            controlador.alterarPassagem(passagem);
+            System.out.println("Passagem Alterada!");
+            System.out.println();
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println();
+        System.out.println("tecle <enter> para voltar");
+        scanner.nextLine();
 
     }
     private static void listarPassagens(){
+    	limpaTela();
+        System.out.println("======>> Lista de Passagens <<========");
+        System.out.println("========================================");
+        
+        List<Passagem> passagens = controlador.getAllpassagem();
+            System.out.printf("Id     Nome               Viagem              Embarcação  \n");
+            System.out.printf("====== ================== =================== =============\n");
+            for (Passagem passagem: passagens) {
+                System.out.printf("%6s ", passagem.getID());
+                System.out.printf("%-18s ", passagem.getNome());
+                System.out.printf("%-19s ", passagem.getViagem().getLinha().getNome());
+                System.out.printf("%-13s \n", passagem.getViagem().getLinha().getEmbarcacao().getNome());
+       
+            }
+            System.out.println("======================================================");
+            System.out.println();
+            System.out.println("tecle <enter> para voltar");
+            scanner.nextLine();
+
 
     }
-    private static void tirarSegundaVia(){
+    
+    private static void consultarPassagens() {
+    	
+    	limpaTela();
+        System.out.println("Consultar Passagem");
+        System.out.println("==================");
+        System.out.println();
+        System.out.print("Id da Passagem: ");
+        String id = scanner.nextLine();
+        limpaTela();
         
+        try {
+        	System.out.println(" Informações da Passagem ");
+            System.out.println("=========================");
+            Passagem passagem = controlador.buscarPassagem(id);
+            System.out.println();
+            System.out.println("Id.................: " + passagem.getID());
+            System.out.println("RG.................: " + passagem.getRG());
+            System.out.println("Nome...............: " + passagem.getNome());
+            System.out.printf("Valor da Passagem..: R$ %.2f\n", passagem.getViagem().getLinha().getValorPassagem());
+            System.out.println("Viagem.............: " + passagem.getViagem().getLinha().getNome());
+            System.out.println("Embarcação.........: " + passagem.getViagem().getLinha().getEmbarcacao().getNome());
+            System.out.println("Empresa............: " + passagem.getViagem().getLinha().getEmbarcacao().getProprietário().getNome());
+            System.out.println();
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println();
+        System.out.println("tecle <enter> para voltar");
+        scanner.nextLine();
+		
+	}
+    
+    private static void retirarSegundaVia(){
+    	
+    	limpaTela();
+        System.out.println("Retirar Segunda Via");
+        System.out.println("===================");
+        System.out.println();
+        System.out.print("RG: ");
+        String RG = scanner.nextLine();
+        limpaTela();
+        
+        try {
+        	
+        	Passagem passagemRG = controlador.buscarPassagemRG(RG);
+        	System.out.println("As passagens com este RG " + passagemRG.getRG() + " são: ");
+        	System.out.println("===============================================");
+        	System.out.println();
+        	List<Passagem> passagens = controlador.getAllpassagem(RG);
+        	for (Passagem passagem : passagens) {
+        		System.out.println("Nome da Viagem.......: " + passagem.getViagem().getLinha().getNome());
+        		System.out.println("Nome da Embarcação...: " + passagem.getViagem().getLinha().getEmbarcacao().getNome());
+                System.out.println("id da Passagem.......: " + passagem.getID());
+                System.out.println("===============================================");
+				
+			}	
+        	
+        	System.out.println();
+        	System.out.println("Informe o Id da passagem que quer a segunda Via");
+        	System.out.print("Id: ");
+    		String id =  scanner.nextLine();
+    		Passagem passagem = controlador.buscarPassagem(id);
+    		System.out.println("===============================================");
+        	System.out.println();
+            System.out.println("Id.................: " + passagem.getID());
+            System.out.println("RG.................: " + passagem.getRG());
+            System.out.println("Nome...............: " + passagem.getNome());
+            System.out.printf("Valor da Passagem..: R$ %.2f\n", passagem.getViagem().getLinha().getValorPassagem());
+            System.out.println("Viagem.............: " + passagem.getViagem().getLinha().getNome());
+            System.out.println("Embarcação.........: " + passagem.getViagem().getLinha().getEmbarcacao().getNome());
+            System.out.println("Empresa............: " + passagem.getViagem().getLinha().getEmbarcacao().getProprietário().getNome());
+            System.out.println();
+            
+            System.out.println("Segunda Via Retirada!");
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        System.out.println();
+        System.out.println("tecle <enter> para voltar");
+        scanner.nextLine();
+  
     }
+    
 
 }

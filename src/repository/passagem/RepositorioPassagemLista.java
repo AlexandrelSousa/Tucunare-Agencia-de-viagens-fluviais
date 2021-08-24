@@ -3,8 +3,10 @@ package repository.passagem;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.embarcacao.Embarcacao;
 import model.empresa.Empresa;
 import model.passagem.Passagem;
+import model.viagem.Viagem;
 import repository.empresa.EmpresaJaCadastradaException;
 import repository.empresa.EmpresaNaoCadastradaException;
 
@@ -16,13 +18,15 @@ public class RepositorioPassagemLista implements RepositorioPassagem{
         passagens = new ArrayList<>();
     }
 	@Override
-	public void criarPassagem(Passagem passagem) throws PassagemJaCadastradaException {
+	public Passagem criarPassagem(Passagem passagem) throws PassagemJaCadastradaException {
 		try{
             buscarPassagem(passagem.getID());
+            buscarPassagemRG(passagem.getRG());
             throw new PassagemJaCadastradaException();
         }catch (PassagemNaoCadastradaException ex){
             passagens.add(passagem);
         }
+		return passagem;
 		
 	}
 
@@ -59,8 +63,30 @@ public class RepositorioPassagemLista implements RepositorioPassagem{
         }
         return lista;
 	}
-    
+	@Override
+	public List<Passagem> getAll() {
+		return new ArrayList<>(passagens);
+	}
+	@Override
+	public Passagem buscarPassagemRG(String RG) throws PassagemNaoCadastradaException {
+		for(Passagem passagem : passagens){
+            if(passagem.getRG().equals(RG)){
+                return passagem;
+            }
+        }
+        throw new PassagemNaoCadastradaException();
+	}
+	@Override
+	public List<Passagem> getAllPassageiro(String RG) {
+		List<Passagem> lista = new ArrayList<>();
+        for (Passagem passagem : passagens) {
+            if (passagem.getRG().equals(RG)) {
+                lista.add(passagem);
+            }
+        }
+        return lista;
+		
+	}
 	
-	
-
 }
+    

@@ -143,12 +143,12 @@ public class ControladorTucunare {
         //                   P A S S A G E M
         
         public void criarPassagem(Passagem passagem) throws PassagemJaCadastradaException, ControladorException {
-        	List<Passagem> numeroPassagem = this.getAllPassagem(passagem.getID());
+        	List<Passagem> numeroPassagem = this.getAllPassagem(passagem.getViagem().getId());
         	int i = 0;
-        	for (Passagem passagem2 : numeroPassagem) {
+        	for (Passagem passagem1 : numeroPassagem) {
 				i++;
 			}
-        	if (i <= passagem.getViagem().getLinha().getEmbarcacao().getLotacao()) {
+        	if (i < passagem.getViagem().getLinha().getEmbarcacao().getLotacao()) {
         		repositorioPassagem.criarPassagem(passagem);
         	}else {
         		throw new ControladorException("Passagem não criada por ultrapassar a lotação do barco");
@@ -159,7 +159,7 @@ public class ControladorTucunare {
         	repositorioPassagem.alterarPassagem(passagem);
         }
         
-        public void deleterPassagem(Passagem passagem) throws PassagemNaoCadastradaException {
+        public void deletarPassagem(Passagem passagem) throws PassagemNaoCadastradaException {
         	repositorioPassagem.deleterPassagem(passagem);
         }
         
@@ -167,11 +167,28 @@ public class ControladorTucunare {
         	return repositorioPassagem.buscarPassagem(id);
         }
         
+        public Passagem buscarPassagemRG(String RG) throws PassagemNaoCadastradaException {
+        	return repositorioPassagem.buscarPassagemRG(RG);
+        }
+        
         public List<Passagem> getAllPassagem(String id) {
         	return repositorioPassagem.getAll(id);
         }
         
+        public List<Passagem> getAllpassagem() {
+			return repositorioPassagem.getAll();	
+		
+        }
+        
+        public List<Passagem> getAllpassagem(String RG) {
+			return repositorioPassagem.getAllPassageiro(RG);	
+		
+        }
+      
+        
         public void exit() {
             // Não faz nada
         }
+
+		
 }
