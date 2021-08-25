@@ -1,0 +1,117 @@
+[33mcommit 2b15ec96a6050d769524544985ca6ef49b0cda86[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: alexandrelsousa <alexandrelsousa@outlook.com>
+Date:   Fri Aug 20 18:20:39 2021 -0300
+
+    Implementação no main do menu Empresas.
+
+[33mcommit 373af73e03c41f8e2864fceff25b47c63ebc883c[m[33m ([m[1;31morigin/master[m[33m)[m
+Merge: 762edc5 0792966
+Author: Alexandre lopes de sousa <alexandrelsousa@outlook.com>
+Date:   Fri Aug 20 15:37:21 2021 -0300
+
+    Merge pull request #3 from Jarlisonn/master
+    
+    Criado Métodos no Controlador e Programa Main (Empresa e Embarcação)
+
+[33mcommit 0792966685fb3498e01b8115a946f01542989bfe[m
+Author: Jarlisonn <jarl.arrow@gmail.com>
+Date:   Thu Aug 19 20:00:37 2021 -0300
+
+    Criação de métodos no Controlador (Empresa e Embarcação) e implementação de métodos no programa main no menu de Embarcações
+
+[33mcommit 833ca7d58098893e31f67a4b1cc1cab9bcd52042[m
+Merge: 1982224 762edc5
+Author: Jarlisonn <88516006+Jarlisonn@users.noreply.github.com>
+Date:   Mon Aug 16 17:26:31 2021 -0300
+
+    Merge pull request #2 from AlexandrelSousa/master
+    
+    Primeiras telas do main e inicialização do controlador.
+
+[33mcommit 762edc5d1eb5a2be2e41257ced8af8c8ce887053[m
+Author: alexandrelsousa <alexandrelsousa@outlook.com>
+Date:   Thu Aug 12 19:12:53 2021 -0300
+
+    Criação das telas do main e inicialização do controlador.
+
+[33mcommit 7152885eecc0401f85d74d8c6ac434b460e191ee[m
+Merge: 13e9136 1982224
+Author: Alexandre lopes de sousa <alexandrelsousa@outlook.com>
+Date:   Wed Aug 11 21:40:02 2021 -0300
+
+    Merge pull request #2 from Jarlisonn/master
+    
+    Criação dos repositorios
+
+[33mcommit 1982224b8e10822e7173aaee4eefe03f2a804680[m
+Merge: 43021a5 6636e07
+Author: Jarlisonn <jarl.arrow@gmail.com>
+Date:   Wed Aug 11 20:36:30 2021 -0300
+
+    Merge branch 'master' of https://github.com/Jarlisonn/Tucunare-Agencia-de-viagens-fluviais
+
+[33mcommit 43021a597299491a4ab917c47ad7a89a9aadad0b[m
+Author: Jarlisonn <jarl.arrow@gmail.com>
+Date:   Wed Aug 11 20:32:46 2021 -0300
+
+    Criação dos repositorios e exceptions da Empresa, Passagem e Viagens
+
+[33mcommit 6636e071e5f90319c19e0bc486a66fd66cd4fa2d[m
+Merge: 1e854cc 13e9136
+Author: Jarlisonn <88516006+Jarlisonn@users.noreply.github.com>
+Date:   Wed Aug 11 18:55:14 2021 -0300
+
+    Merge pull request #1 from AlexandrelSousa/master
+    
+    Repositorios Embarcacao e Linha.
+
+[33mcommit 13e91362055ad43940ba950000c3b4f7b8568dd9[m
+Author: alexandrelsousa <alexandrelsousa@outlook.com>
+Date:   Wed Aug 11 18:00:58 2021 -0300
+
+    Implementação no repositório dos CRUDs de embarcacao e linha.
+
+[33mcommit 14fcdb6365ac1badd0bd82a14c60d67b530d8f5f[m
+Merge: 935d559 1e854cc
+Author: Alexandre lopes de sousa <alexandrelsousa@outlook.com>
+Date:   Wed Aug 11 15:21:50 2021 -0300
+
+    Merge pull request #1 from Jarlisonn/master
+    
+    Criação de classes, construtores, gets e sets dos models Embarcação, …
+
+[33mcommit 1e854cc38cca2836888f43fbea791529b6ecb035[m
+Author: Jarlisonn <jarl.arrow@gmail.com>
+Date:   Tue Aug 10 21:11:23 2021 -0300
+
+    Criação dos atributos, construtores, gets e sets dos models Embarcação, Empresa e Viagem
+
+[33mcommit 283a8c6c9ea174f30a5f0b4db389992b5b9e873f[m
+Author: Jarlisonn <jarl.arrow@gmail.com>
+Date:   Tue Aug 10 20:34:57 2021 -0300
+
+    Criação de classes, construtores, gets e sets dos models Embarcação, Empresa e Viagem
+
+[33mcommit 935d55929d7bd5fed885f7b93d491abab0d35545[m
+Author: alexandrelsousa <alexandrelsousa@outlook.com>
+Date:   Tue Aug 10 18:56:58 2021 -0300
+
+    imagem da logo do projeto
+
+[33mcommit 35b2e76b760d30acdaa657d5dace86533ca3d745[m
+Author: alexandrelsousa <alexandrelsousa@outlook.com>
+Date:   Mon Aug 9 18:11:00 2021 -0300
+
+    implementação dos atributos, métodos get, set e construtor dos objetos Linha e Passagem.
+
+[33mcommit a8d1891a04be8578c46774a3d5f70f0b6c5e939d[m
+Author: alexandrelsousa <alexandrelsousa@outlook.com>
+Date:   Fri Aug 6 20:27:10 2021 -0300
+
+    criação do arquivo main e as classes que serão usadas no programa.
+
+[33mcommit bbc446abb45ac1a7c99ec55ea12fb4f96fa94bb9[m
+Author: alexandrelsousa <alexandrelsousa@outlook.com>
+Date:   Thu Aug 5 20:04:29 2021 -0300
+
+    primeiro commit do projeto

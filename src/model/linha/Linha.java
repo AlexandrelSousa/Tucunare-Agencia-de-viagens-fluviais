@@ -65,5 +65,5 @@ public class Linha {
 	public void setEmbarcacao(Embarcacao embarcacao) {
 		this.embarcacao = embarcacao;
 	}
-
+    
 }
