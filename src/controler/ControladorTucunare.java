@@ -151,7 +151,7 @@ public class ControladorTucunare {
         	if (i < passagem.getViagem().getLinha().getEmbarcacao().getLotacao()) {
         		repositorioPassagem.criarPassagem(passagem);
         	}else {
-        		throw new ControladorException("Passagem não criada por ultrapassar a lotação do barco");
+        		throw new ControladorException("Passagem não criada!   ");
         	}
         }
         
