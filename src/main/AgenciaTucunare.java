@@ -41,13 +41,14 @@ public class AgenciaTucunare{
         	System.out.println("==             AGÊNCIA TUCUNARÉ                 ==        ");
             System.out.println("==================================================");
             System.out.println("  1. EMPRESAS                    =================");
-            System.out.println("  2. EMBACAÇÕES                =================");
+            System.out.println("  2. EMBACAÇÕES                ===================");
             System.out.println("  3. VIAGENS                      ================");
             System.out.println("  4. LINHAS                        ===============");
             System.out.println("  5. PASSAGEM                    =================");
             System.out.println("  0. SAIR                            =============");
             System.out.println("                               ===================");
-            System.out.println("==================================================");    
+            System.out.println("==================================================");
+            System.out.print("Escolha uma opção: ");
             //Lendo e interpretando a opção fornecida
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
@@ -72,6 +73,7 @@ public class AgenciaTucunare{
                     break;
                 case 5:
                     menuPassagem();
+                    break;
             }
         } while (opcao != 0);
 
@@ -89,9 +91,9 @@ public class AgenciaTucunare{
             controlador.inserirEmpresa(empresa02);
             
             //cria embarcações
-            Embarcacao e1 = new Embarcacao("Boto",2, empresa01);
+            Embarcacao e1 = new Embarcacao("Golfinho do Mar",2, empresa01);
             controlador.inserirEmbarcacao(e1);
-            Embarcacao e2 = new Embarcacao("Barcarena",70, empresa02);
+            Embarcacao e2 = new Embarcacao("Barcarena",10, empresa02);
             controlador.inserirEmbarcacao(e2);
             Embarcacao e3 = new Embarcacao("Bajara", 6, empresa01);
             controlador.inserirEmbarcacao(e3);
@@ -114,11 +116,11 @@ public class AgenciaTucunare{
             controlador.inserirViagem(v3);
             
             //cria Passagem
-            Passagem p1 = new Passagem("1234","Fábio",v1);
+            Passagem p1 = new Passagem("1234","Enoque Calvino",v1);
             controlador.criarPassagem(p1);
-            Passagem p2 = new Passagem("5678","Rodrigo",v1);
+            Passagem p2 = new Passagem("5678","Rodrigo Alves",v1);
             controlador.criarPassagem(p2);
-            Passagem p3 = new Passagem("9102","Barcus",v2);
+            Passagem p3 = new Passagem("9102","Barcus Bentes",v2);
             controlador.criarPassagem(p3);
 
         } catch (Exception ex) {
@@ -152,7 +154,8 @@ public class AgenciaTucunare{
             System.out.println("  5. BUSCAR EMPRESA              ==================");
             System.out.println("  0. MENU PRINCIPAL              ==================");
             System.out.println("                                ===================");
-            System.out.println("===================================================");  
+            System.out.println("===================================================");
+            System.out.print("Escolha uma opção: ");
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
             } catch (Exception e) {
@@ -176,6 +179,7 @@ public class AgenciaTucunare{
                     break;
                 case 5:
                     buscarEmpresa();
+                    break;
             }
         }while(opcao != 0);
 
@@ -195,8 +199,13 @@ public class AgenciaTucunare{
             String nome = scanner.nextLine();
             System.out.println("==============================================================");
             Empresa empresa = new Empresa(cnpj, nome);
-            controlador.inserirEmpresa(empresa);
-            System.out.println("Cadastro feito com sucesso!");
+            if(empresa.getNome() == "") {
+            	System.out.println("Empresa com nome em branco não pode ser cadastrada!");
+            } else {
+            	controlador.inserirEmpresa(empresa);
+                System.out.println("Cadastro feito com sucesso!");
+            }
+           
         }catch(EmpresaJaCadastradaException ex ){
             System.err.println(ex.getMessage());
         }
@@ -257,10 +266,14 @@ public class AgenciaTucunare{
             System.out.println();
 
             System.out.println("Qual o novo nome da empresa? ===================");
+            System.out.print("Nome (<enter> = Não alterar): ");
             String nome = scanner.nextLine();
             empresa.setNome(nome);
+            if (!nome.equals("")) {
+                empresa.setNome(nome);
+            }
             controlador.AlterarEmpresa(empresa);
-            System.out.println("Nome alterado!");
+            System.out.println("Nome atualizado!");
 
         } catch (EmpresaNaoCadastradaException ex) {
             System.err.println(ex.getMessage());
@@ -294,37 +307,37 @@ public class AgenciaTucunare{
     private static void buscarEmpresa(){
         limpaTela();
         List<Embarcacao> embarcacoes;
-        System.out.println("========================================================");
-        System.out.println("==              BUSCAR EMPRESA                        ==");
-        System.out.println("========================================================");
-        System.out.println("Qual o CNPJ da empresa?                           ======");
+        System.out.println("==============================================");
+        System.out.println("==              BUSCAR EMPRESA              ==");
+        System.out.println("==============================================");
+        System.out.println("                                         =====");
+        System.out.println("Qual o CNPJ da empresa?                 ======");
         System.out.print("CNPJ: ");
         String cnpj = scanner.nextLine();
         
         try{
             Empresa empresa = controlador.buscarEmpresa(cnpj);
-            System.out.println("                                                   =====");
-            System.out.println("EMPRESA           CNPJ           EMBARCAÇÕES       =====        ");
-            System.out.println("================= ============== =======================");
+            System.out.println("                                         =====");
+            System.out.println("EMPRESA           CNPJ EMBARCAÇÕES       =====");
+            System.out.println("================= ==== =======================");
             System.out.printf("%-17s ", empresa.getNome());
-            System.out.printf("%-14s ", empresa.getCnpj());
-            int i = 0;
+            System.out.printf("%-4s ", empresa.getCnpj());
             embarcacoes = controlador.getAll(empresa.getCnpj());
             for(Embarcacao embarcacao : embarcacoes){
-            	i ++;
-            	System.out.printf("%-36s ", embarcacao.getNome() + "\n");
+            	System.out.printf("%-37s ", embarcacao.getNome() + "\n");
             	System.out.print(" ");
+            	
             }
-            if (i == 0) {
+            if (embarcacoes.isEmpty()) {
             	System.out.println("Não Possui Embarcação");
             }
         }catch(EmpresaNaoCadastradaException ex){
             System.err.println(ex.getMessage());
         }
         System.out.println("");
-        System.out.println("tecle <enter> para voltar                          =====");
-        System.out.println("                                                   =====");
-        System.out.println("========================================================");
+        System.out.println("tecle <enter> para voltar                =====");
+        System.out.println("                                         =====");
+        System.out.println("==============================================");
         scanner.nextLine();
     }
 
@@ -346,7 +359,8 @@ public class AgenciaTucunare{
             System.out.println("  5. BUSCAR EMBARCAÇÃO              ==============  ");
             System.out.println("  0. MENU PRINCIPAL                    ===========");
             System.out.println("                               ===================");
-            System.out.println("==================================================");  
+            System.out.println("==================================================");
+            System.out.print("Escolha uma opção: ");
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
             } catch (Exception e) {
@@ -370,9 +384,11 @@ public class AgenciaTucunare{
                     break;
                 case 5:
                     buscarEmbarcacao();
+                    break;
             }
         }while(opcao != 0);
     }
+    
     private static void criarEmbarcacao() {
     	limpaTela();
         System.out.println("==============================================================");
@@ -390,19 +406,23 @@ public class AgenciaTucunare{
             System.out.print("Lotação da Embarcação:    ");
             int lotacao = scanner.nextInt();
 			Embarcacao embarcacao = new Embarcacao(nome, lotacao, empresa);
-        	controlador.inserirEmbarcacao(embarcacao);
-        	System.out.println("                                                ==============");
-            System.out.println("Embarcacão " + embarcacao.getNome() + " Cadastrada! ");
-            System.out.println("                                              ================");	
+			if(embarcacao.getNome() == "") {
+            	System.out.println("Embarcação com nome em branco não pode ser cadastrada!");
+            } else {
+            	controlador.inserirEmbarcacao(embarcacao);
+            	System.out.println("                                                ==============");
+                System.out.println("Embarcacão " + embarcacao.getNome() + " Cadastrada! ");
+                System.out.println("                                              ================");
+            }
             	
-        } catch (EmbarcacaoJaCadastradaException|EmpresaNaoCadastradaException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
       
         System.out.println("                                                ==============");
         System.out.println("tecle <enter> para voltar                            =========");
-        scanner.nextLine();
         System.out.println("==============================================================");
+        scanner.nextLine();
         scanner.nextLine();
         
 
@@ -466,7 +486,8 @@ public class AgenciaTucunare{
             System.out.println();
 
             controlador.alterarEmbarcacao(embarcacao);
-            System.out.println("Nome da Embarcação Alterado!                      ==   ");
+            System.out.println("Nome da Embarcação Atualizado!                    ==   ");
+            
         } catch (EmbarcacaoNaoCadastradaException ex) {
             System.err.println(ex.getMessage());
         } 
@@ -507,11 +528,11 @@ public class AgenciaTucunare{
         	System.out.println("Informações da Embarcação                         ==     ");
             System.out.println("====================================================");
             Embarcacao embarcacao = controlador.buscarEmbarcacao(id);
-            System.out.println("Id     nome           Lotação         Empresa     ==   ");
-            System.out.println("====== ============== =============== ==============");
+            System.out.println("Id     nome                   Lotação Empresa     ==   ");
+            System.out.println("====== ====================== ======= ==============");
             System.out.printf("%-7s", embarcacao.getId());
-            System.out.printf("%-15s",embarcacao.getNome());
-            System.out.printf("%-16s", embarcacao.getLotacao());
+            System.out.printf("%-23s",embarcacao.getNome());
+            System.out.printf("%-8s", embarcacao.getLotacao());
             System.out.print(embarcacao.getProprietário().getNome());
 
         } catch (EmbarcacaoNaoCadastradaException ex) {
@@ -544,7 +565,8 @@ public class AgenciaTucunare{
             System.out.println("  6. LISTAR PASSAGEIROS                     ========");
             System.out.println("  0. MENU PRINCIPAL                       ==========");
             System.out.println("                                 ===================");
-            System.out.println("====================================================");  
+            System.out.println("====================================================");
+            System.out.print("Escolha uma opção: ");
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
             } catch (Exception e) {
@@ -568,8 +590,10 @@ public class AgenciaTucunare{
                     break;
                 case 5:
                     buscarViagem();
+                    break;
                 case 6:
                     listarPassageiros();
+                    break;
             }
         }while(opcao != 0);
     }
@@ -645,7 +669,7 @@ public class AgenciaTucunare{
     	
     	limpaTela();
         System.out.println("====================================================");
-        System.out.println("==                Alterar Viagem                  ==");
+        System.out.println("==                ALTERAR VIAGEM                  ==");
         System.out.println("====================================================");
         System.out.print("ID: ");
         String id = scanner.nextLine();
@@ -667,7 +691,7 @@ public class AgenciaTucunare{
             
             System.out.println();
             controlador.alterarViagem(viagem);
-            System.out.println("Viagem Alterada!");
+            System.out.println("Viagem Atualizada!");
             System.out.println();
 
         } catch (Exception ex) {
@@ -686,7 +710,7 @@ public class AgenciaTucunare{
     	
     	limpaTela();
         System.out.println("========================================================");
-        System.out.println("==                  Lista de Viagens                  ==");
+        System.out.println("==                  LISTA DE VIAGENS                  ==");
         System.out.println("========================================================");
         
         List<Viagem> viagens = controlador.getAllViagem();
@@ -694,7 +718,7 @@ public class AgenciaTucunare{
             System.out.printf("====== ================== ==============================\n");
             for (Viagem viagem: viagens) {
                 System.out.printf("%6s ", viagem.getId());
-                System.out.printf("%-17s ", viagem.getLinha().getNome());
+                System.out.printf("%-18s ", viagem.getLinha().getNome());
                 String formato = "dd/MM/yyyy"; 
                 SimpleDateFormat sdf = new SimpleDateFormat(formato);
                 String sdata = sdf.format(viagem.getData());
@@ -711,7 +735,7 @@ public class AgenciaTucunare{
     private static void buscarViagem(){
     	limpaTela();
         System.out.println("=============================================================================================");
-        System.out.println("==                                    Consultar Viagem                                     ==");
+        System.out.println("==                                    CONSULTAR VIAGEM                                     ==");
         System.out.println("=============================================================================================");
         System.out.print("Id da Viagem: ");
         String id = scanner.nextLine();
@@ -720,8 +744,9 @@ public class AgenciaTucunare{
             Viagem viagem = controlador.buscarViagem(id);
             System.out.println("=============================================================================================");
             System.out.println("Id    Linha             Embarcação      Empresa           Data    ");
+            System.out.println("===== ================= =============== ================= ===================================");
             System.out.printf("%-6s", viagem.getId());
-            System.out.printf("%-17s", viagem.getLinha().getNome());
+            System.out.printf("%-18s", viagem.getLinha().getNome());
             System.out.printf("%-16s", viagem.getLinha().getEmbarcacao().getNome());
             System.out.printf("%-18s", viagem.getLinha().getEmbarcacao().getProprietário().getNome());
             String formato = "dd/MM/yyyy"; 
@@ -732,7 +757,7 @@ public class AgenciaTucunare{
         } catch (ViagemNaoCadastradaException ex) {
             System.err.println(ex.getMessage());
         }
-
+        System.out.println("\n===== ================= =============== ================= ===================================");
         System.out.println("\n=============================================================================================");
         System.out.println("tecle <enter> para voltar                                                                  ==");
         System.out.println("=============================================================================================");
@@ -762,11 +787,10 @@ public class AgenciaTucunare{
             	System.out.printf("ID (Viagem) RG        Nome               \n");
                 System.out.printf("=========== ========= ================================== \n");
                 	for (Passagem passagem: passagens) {
-                	System.out.printf("%11s ", passagem.getViagem().getId());
-                    System.out.printf("%-9s ", passagem.getRG());
-                    System.out.printf(passagem.getNome() + "\n");
-           
-                }
+                		System.out.printf("%8s    ", passagem.getViagem().getId());
+                		System.out.printf("%-9s ", passagem.getRG());
+                        System.out.printf(passagem.getNome() + "\n");
+                    }
             	
             }
 
@@ -801,7 +825,8 @@ public class AgenciaTucunare{
             System.out.println("  5. BUSCAR LINHA                       ================");
             System.out.println("  0. MENU PRINCIPAL                  ===================");
             System.out.println("                                     ===================");
-            System.out.println("========================================================");  
+            System.out.println("========================================================");
+            System.out.print("Escolha uma opção: ");
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
             } catch (Exception e) {
@@ -825,6 +850,7 @@ public class AgenciaTucunare{
                     break;
                 case 5:
                     buscarLinha();
+                    break;
             }
         }while(opcao != 0);
     }
@@ -952,7 +978,7 @@ public class AgenciaTucunare{
             
             System.out.println();
             controlador.alterarLinha(linha);
-            System.out.println("Linha Alterada!");
+            System.out.println("Linha Atualizada!");
             System.out.println();
 
         } catch (Exception ex) {
@@ -976,11 +1002,11 @@ public class AgenciaTucunare{
             System.out.println("====== ===================== =========== =========== ================== =================");
             for (Linha linha: linhas) {
                 System.out.printf("%-6s ", linha.getID());
-                System.out.printf("%-20s ", linha.getNome());
-                System.out.printf("%-10s ", linha.getOrigem());
+                System.out.printf("%-21s ", linha.getNome());
+                System.out.printf("%-11s ", linha.getOrigem());
                 System.out.printf("%-11s ", linha.getDestino());
                 System.out.printf("%-18s ", linha.getEmbarcacao().getNome());
-                System.out.print("R$ " + linha.getValorPassagem() + "\n");
+                System.out.printf("R$ %14.2f \n", linha.getValorPassagem());
             }
             
             System.out.println("====== ===================== =========== =========== ================== =================");
@@ -1002,27 +1028,28 @@ public class AgenciaTucunare{
         limpaTela();
         
         try {
-            System.out.println("==========================================================================================");
-        	System.out.println("==                               Informações da Linha                                   ==   ");
-            System.out.println("==========================================================================================");
-            Linha linha = controlador.buscarLinha(id);
-            System.out.println("Id    Nome               Origem     Destino     Valor/passagem  Embarcação  Empresa");
-            System.out.println("===== ================== ========== =========== =============== =========== ==============");
+        	Linha linha = controlador.buscarLinha(id);
+            System.out.println("=================================================================================================");
+        	System.out.println("==                                Informações da Linha                                         ==   ");
+            System.out.println("=================================================================================================");
+            System.out.println("Id    Nome               Origem     Destino     Embarcação      Empresa            Valor/passagem");
+            System.out.println("===== ================== ========== =========== =============== ================== ==============");
             System.out.printf("%-6s", linha.getID());
-            System.out.printf("%-18s", linha.getNome());
-            System.out.printf("%-10s", linha.getOrigem());
+            System.out.printf("%-19s", linha.getNome());
+            System.out.printf("%-11s", linha.getOrigem());
             System.out.printf("%-12s", linha.getDestino());
-            System.out.printf("%-16s", "R$ " + linha.getValorPassagem());
-            System.out.printf("%-12s", linha.getEmbarcacao().getNome());
-            System.out.print(linha.getEmbarcacao().getProprietário().getNome());
-
+            System.out.printf("%-16s", linha.getEmbarcacao().getNome());
+            System.out.printf("%-19s", linha.getEmbarcacao().getProprietário().getNome());
+            System.out.printf("R$ %11.2f ", linha.getValorPassagem());
+            System.out.println("\n===== ================== ========== =========== =============== ================== ==============");
+            
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
-        System.out.println("\n===== ================== ========== =========== =============== =========== ==============");
-        System.out.println("==========================================================================================");
-        System.out.println("tecle <enter> para voltar                                                               ==");
-        System.out.println("==========================================================================================");
+        
+        System.out.println("=================================================================================================");
+        System.out.println("tecle <enter> para voltar                                                                      ==");
+        System.out.println("=================================================================================================");
         scanner.nextLine();
 
     }
@@ -1046,7 +1073,8 @@ public class AgenciaTucunare{
             System.out.println("  6. TIRAR SEGUNDA VIA           =================");
             System.out.println("  0. MENU PRINCIPAL                  =============");
             System.out.println("                               ===================");
-            System.out.println("==================================================");  
+            System.out.println("==================================================");
+            System.out.print("Escolha uma opção: ");
             try {
                 opcao = Integer.valueOf(scanner.nextLine());
             } catch (Exception e) {
@@ -1078,6 +1106,7 @@ public class AgenciaTucunare{
         }while(opcao != 0);
     }
        
+	
 	private static void comprarPassagem(){
     	limpaTela();
         System.out.println("===============================================");
@@ -1092,10 +1121,19 @@ public class AgenciaTucunare{
             
             System.out.print("RG do Passageiro: ");
             String RG = scanner.nextLine();
-            System.out.print("Nome do Passageiro: ");
-            String nome = scanner.nextLine();
-            
-			Passagem passagem = new Passagem(RG, nome, viagem);
+            String nome = null;
+			List<Passagem> passagens = controlador.getAllpassagem(RG);
+			if(passagens.isEmpty()) {
+				System.out.print("Nome do Passageiro: ");
+                nome = scanner.nextLine();	
+			
+	        } else {
+	            for (Passagem passagem : passagens) {
+	            	nome = passagem.getNome();
+	            }
+			}
+			String novonome = nome;
+			Passagem passagem = new Passagem(RG, novonome, viagem);
         	controlador.criarPassagem(passagem);
         	System.out.println("                                             ==");
             System.out.println("Passagem para " + passagem.getViagem().getLinha().getNome() + " Cadastrada! ");
@@ -1123,13 +1161,13 @@ public class AgenciaTucunare{
 
         try {
             Passagem passagem = controlador.buscarPassagem(id);
-            System.out.println("ID   RG          Nome      Viagem");
-            System.out.println("==== =========== ========= ====================    ");
+            System.out.println("ID   RG          Nome           Viagem");
+            System.out.println("==== =========== ============== ====================    ");
             System.out.printf("%-5s", passagem.getID());
             System.out.printf("%-12s", passagem.getRG());
-            System.out.printf("%-9s", passagem.getNome());
+            System.out.printf("%-14s ", passagem.getNome());
             System.out.printf("%-10s", passagem.getViagem().getLinha().getNome());
-            System.out.println("\n==== =========== ========= ====================");
+            System.out.println("\n==== =========== ============== ====================");
 
             System.out.println("Cancelar essa Passagem? (s/n)?               ==");
             String resposta = scanner.nextLine();
@@ -1172,7 +1210,7 @@ public class AgenciaTucunare{
             }
             
             controlador.alterarPassagem(passagem);
-            System.out.println("Passagem Alterada!                                    ==");
+            System.out.println("Passagem Atualizada!                                  ==");
 
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
@@ -1186,24 +1224,24 @@ public class AgenciaTucunare{
     }
     private static void listarPassagens(){
     	limpaTela();
-        System.out.println("===========================================================");
-        System.out.println("==                  Lista de Passagens                   ==");
-        System.out.println("===========================================================");
+        System.out.println("=============================================================");
+        System.out.println("==                  Lista de Passagens                     ==");
+        System.out.println("=============================================================");
         
         List<Passagem> passagens = controlador.getAllpassagem();
             System.out.println("Id     Nome               Viagem              Embarcação");
-            System.out.println("====== ================== =================== =============");
+            System.out.println("====== ================== =================== ===============");
             for (Passagem passagem: passagens) {
                 System.out.printf("%-6s ", passagem.getID());
                 System.out.printf("%-18s ", passagem.getNome());
-                System.out.printf("%-18s ", passagem.getViagem().getLinha().getNome());
+                System.out.printf("%-19s ", passagem.getViagem().getLinha().getNome());
                 System.out.print(passagem.getViagem().getLinha().getEmbarcacao().getNome() + "\n");
        
             }
-            System.out.println("====== ================== =================== =============\n");
-            System.out.println("===========================================================");
+            System.out.println("====== ================== =================== ===============\n");
+            System.out.println("=============================================================");
             System.out.println("tecle <enter> para voltar");
-            System.out.println("===========================================================");
+            System.out.println("=============================================================");
             scanner.nextLine();
 
 
@@ -1220,27 +1258,27 @@ public class AgenciaTucunare{
         limpaTela();
         
         try {
-            System.out.println("========================================================================================");
-        	System.out.println("==                               Informações da Passagem                              ==   ");
-            System.out.println("========================================================================================");
+            System.out.println("================================================================================================");
+        	System.out.println("==                                Informações da Passagem                                     ==   ");
+            System.out.println("================================================================================================");
             Passagem passagem = controlador.buscarPassagem(id);
-            System.out.println("ID    RG    Nome     Valor/Passagem   Viagem              Embarcação     Empresa");
-            System.out.println("===== ===== ======== ================ =================== ============== ===============");
-            System.out.printf("%-6s", passagem.getID());
-            System.out.printf("%-6s", passagem.getRG());
-            System.out.printf("%-8s", passagem.getNome());
-            System.out.printf("%-17s", "R$ " + passagem.getViagem().getLinha().getValorPassagem());
-            System.out.printf("%-19s", passagem.getViagem().getLinha().getNome());
-            System.out.printf("%-15s", passagem.getViagem().getLinha().getEmbarcacao().getNome());
-            System.out.print(passagem.getViagem().getLinha().getEmbarcacao().getProprietário().getNome() + "\n");
+            System.out.println("ID    RG   Nome           Viagem           Embarcação          Empresa           Valor/Passagem ");
+            System.out.println("===== ==== ============== ================ =================== ================= ===============");
+            System.out.printf("%5s ", passagem.getID());
+            System.out.printf("%-5s", passagem.getRG());
+            System.out.printf("%-15s", passagem.getNome());
+            System.out.printf("%-17s", passagem.getViagem().getLinha().getNome());
+            System.out.printf("%-20s", passagem.getViagem().getLinha().getEmbarcacao().getNome());
+            System.out.printf("%-18s", passagem.getViagem().getLinha().getEmbarcacao().getProprietário().getNome() + "");
+            System.out.printf("R$ %12.2f \n", passagem.getViagem().getLinha().getValorPassagem());
             
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
 
-        System.out.println("========================================================================================");
-        System.out.println("tecle <enter> para voltar                                                             ==");
-        System.out.println("========================================================================================");
+        System.out.println("================================================================================================");
+        System.out.println("tecle <enter> para voltar                                                                     ==");
+        System.out.println("================================================================================================");
         scanner.nextLine();
 		
 	}
@@ -1262,48 +1300,55 @@ public class AgenciaTucunare{
         	System.out.println("Passagens de " + passagemRG.getRG() + ": ");
         	System.out.println("======================================");
         	System.out.println("                                    ==");
+        	System.out.println("Rota              Embarcação      ID   ");
+        	System.out.println("================= =============== ====");
         	List<Passagem> passagens = controlador.getAllpassagem(RG);
+
         	for (Passagem passagem : passagens) {
-        		System.out.println("Rota              Embarcação    ID   ");
-        		System.out.println("================= ============= ======");
-                System.out.printf("%-17s", passagem.getViagem().getLinha().getNome());
-                System.out.printf("%-14s", passagem.getViagem().getLinha().getEmbarcacao().getNome());
+                System.out.printf("%-18s", passagem.getViagem().getLinha().getNome());
+                System.out.printf("%-15s ", passagem.getViagem().getLinha().getEmbarcacao().getNome());
                 System.out.print(passagem.getID()  + "\n");
-                System.out.println("======================================");
+                
 				
 			}	
-        	
+        	System.out.println("======================================");
         	System.out.println();
         	System.out.println("ID da segunda via desejada:         ==");
         	System.out.print("ID: ");
     		String id =  scanner.nextLine();
     		Passagem passagem = controlador.buscarPassagem(id);
             limpaTela();
-            System.out.println("Segunda via retirada com sucesso!");
-            System.out.println("Aguarde enquanto imprimos sua passagem...");
-            Thread.sleep(5000);
-            limpaTela();
-    		System.out.println("================= PASSAGEIRO ==================");
-            Thread.sleep(250);
-            System.out.printf("%-18s", passagem.getNome());
-            System.out.printf("%-22s", "RG: " + passagem.getRG());
-            System.out.print("ID [" + passagem.getID() + "]\n");
-            Thread.sleep(250);
-            System.out.println("=================== VIAGEM ====================");
-            Thread.sleep(250);
-            System.out.print("Origem/Destino:");
-            System.out.printf("%32s", passagem.getViagem().getLinha().getNome() + "  "); 
-            Thread.sleep(250);
-            System.out.print("\nEmbarcação:   ");
-            System.out.printf("%20s", passagem.getViagem().getLinha().getEmbarcacao().getNome() + "  ");
-            Thread.sleep(250);
-            System.out.print("\nEmpresa:");
-            System.out.printf("%36s", passagem.getViagem().getLinha().getEmbarcacao().getProprietário().getNome());
-            Thread.sleep(250);
-            System.out.printf("%-31s", "\nValor da Passagem:");
-            Thread.sleep(250);
-            System.out.println("R$ " + passagem.getViagem().getLinha().getValorPassagem());
-            Thread.sleep(2000);
+            if(passagens.contains(passagem)){
+                	System.out.println("Segunda via retirada com sucesso!");
+                    System.out.println("Aguarde enquanto é imprimida sua passagem...");
+                    Thread.sleep(5000);
+                    limpaTela();
+            		System.out.println("================= PASSAGEIRO ==================");
+                    Thread.sleep(250);
+                    System.out.printf("%-19s", passagem.getNome());
+                    System.out.printf("%-22s", "RG: " + passagem.getRG());
+                    System.out.print("ID [" + passagem.getID() + "]\n");
+                    Thread.sleep(250);
+                    System.out.println("=================== VIAGEM ====================");
+                    Thread.sleep(250);
+                    System.out.print("Origem/Destino:");
+                    System.out.printf("%32s", passagem.getViagem().getLinha().getNome() + "  "); 
+                    Thread.sleep(250);
+                    System.out.print("\nEmbarcação:");
+                    System.out.printf("%36s", passagem.getViagem().getLinha().getEmbarcacao().getNome() + "  ");
+                    Thread.sleep(250);
+                    System.out.print("\nEmpresa:");
+                    System.out.printf("%36s", passagem.getViagem().getLinha().getEmbarcacao().getProprietário().getNome());
+                    Thread.sleep(250);
+                    System.out.printf("%-31s", "\nValor da Passagem:");
+                    Thread.sleep(250);
+                    System.out.printf("R$ %.2f \n", passagem.getViagem().getLinha().getValorPassagem());
+                    Thread.sleep(2000);
+                } else {
+                	System.out.println("Id não consta no RG de " + passagemRG.getNome());
+    		}
+			
+            
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }

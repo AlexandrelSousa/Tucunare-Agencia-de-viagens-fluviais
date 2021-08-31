@@ -18,11 +18,10 @@ public class RepositorioPassagemLista implements RepositorioPassagem{
         passagens = new ArrayList<>();
     }
 	@Override
-	public Passagem criarPassagem(Passagem passagem) throws PassagemJaCadastradaException {
+	public Passagem criarPassagem(Passagem passagem) {
 		try{
             buscarPassagem(passagem.getID());
             buscarPassagemRG(passagem.getRG());
-            throw new PassagemJaCadastradaException();
         }catch (PassagemNaoCadastradaException ex){
             passagens.add(passagem);
         }

@@ -143,15 +143,15 @@ public class ControladorTucunare {
         //                   P A S S A G E M
         
         public void criarPassagem(Passagem passagem) throws PassagemJaCadastradaException, ControladorException {
-        	List<Passagem> numeroPassagem = this.getAllPassagem(passagem.getViagem().getId());
-        	int i = 0;
-        	for (Passagem passagem1 : numeroPassagem) {
-				i++;
-			}
-        	if (i < passagem.getViagem().getLinha().getEmbarcacao().getLotacao()) {
+        	List<Passagem> passagens = this.getAllPassagem(passagem.getViagem().getId());
+        	//int i = 0;
+        	//for (Passagem passagem1 : numeroPassagem) {
+				//i++;
+			//}
+        	if (passagens.size() < passagem.getViagem().getLinha().getEmbarcacao().getLotacao()) {
         		repositorioPassagem.criarPassagem(passagem);
         	}else {
-        		throw new ControladorException("Passagem não criada!   ");
+        		throw new ControladorException("Passagem não cadastrada, pois a lotação máxima da embarcação já foi alcançada!   ");
         	}
         }
         
